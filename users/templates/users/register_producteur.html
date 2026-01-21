@@ -1,0 +1,640 @@
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription Producteur | Agritech Bénin</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Select2 pour les selects améliorés -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #28a745;
+            --primary-dark: #218838;
+            --secondary-color: #ffc107;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 1rem 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Container principal */
+        .registration-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        /* Carte d'inscription */
+        .card-registration {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            overflow: hidden;
+            background: white;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+
+        .form-header h2 {
+            margin: 0;
+            font-weight: 700;
+            position: relative;
+            font-size: 1.8rem;
+        }
+
+        .form-header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+            position: relative;
+            font-size: 1rem;
+        }
+
+        .form-body {
+            padding: 2.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+            outline: none;
+        }
+
+        /* Style pour Select2 */
+        .select2-container--default .select2-selection--single {
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            height: 48px;
+            padding: 10px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 24px;
+            padding-left: 0;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 46px;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--single {
+            border-color: var(--primary-color);
+        }
+
+        .select2-dropdown {
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+
+        /* Champs en ligne */
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .btn-register {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            font-weight: 600;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            transition: all 0.3s;
+            width: 100%;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-back {
+            background: #6c757d;
+            color: white;
+            font-weight: 600;
+            padding: 12px 25px;
+            border-radius: 10px;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background: #5a6268;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Messages d'erreur */
+        .error-message {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .form-control.is-invalid, .form-select.is-invalid {
+            border-color: #dc3545;
+        }
+
+        /* Footer */
+        footer {
+            background: #343a40;
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-row .form-group {
+                margin-bottom: 1rem;
+            }
+            
+            .form-body {
+                padding: 1.5rem;
+            }
+            
+            .registration-container {
+                padding: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <span>🌱</span>Agritech Bénin
+        </a>
+        <div class="ms-auto">
+            <a href="{% url 'home' %}" class="btn btn-outline-light btn-sm">
+                <i class="fas fa-home me-1"></i> Accueil
+            </a>
+            <a href="{% url 'login' %}" class="btn btn-light btn-sm ms-2">
+                <i class="fas fa-sign-in-alt me-1"></i> Connexion
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Container principal -->
+<div class="registration-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card card-registration">
+                    <div class="form-header">
+                        <h2><i class="fas fa-user-edit me-2"></i>Inscription Producteur</h2>
+                        <p>Rejoignez notre communauté d'agriculteurs innovants</p>
+                    </div>
+                    <div class="form-body">
+                        <a href="{% url 'home' %}" class="btn btn-back mb-4">
+                            <i class="fas fa-arrow-left"></i> Retour à l'accueil
+                        </a>
+                        
+                        <form method="post" action="{% url 'register_producteur' %}" novalidate id="registrationForm">
+                            {% csrf_token %}
+                            {{ form_register.non_field_errors }}
+                            
+                            <!-- Champ caché pour la commune -->
+                            <input type="hidden" id="hiddenCommune" name="commune">
+                            
+                            <!-- Nom et Prénom -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nom" class="form-label">
+                                        <i class="fas fa-user"></i>Nom *
+                                    </label>
+                                    <input type="text" 
+                                           name="nom" 
+                                           id="nom" 
+                                           class="form-control" 
+                                           placeholder="Votre nom de famille"
+                                           value="{% if form_register.nom.value %}{{ form_register.nom.value }}{% endif %}"
+                                           required>
+                                    {% if form_register.nom.errors %}
+                                    <div class="error-message">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        {{ form_register.nom.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <label for="prenom" class="form-label">
+                                        <i class="fas fa-user"></i>Prénom *
+                                    </label>
+                                    <input type="text" 
+                                           name="prenom" 
+                                           id="prenom" 
+                                           class="form-control" 
+                                           placeholder="Votre prénom"
+                                           value="{% if form_register.prenom.value %}{{ form_register.prenom.value }}{% endif %}"
+                                           required>
+                                    {% if form_register.prenom.errors %}
+                                    <div class="error-message">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        {{ form_register.prenom.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Nom d'utilisateur -->
+                            <div class="form-group">
+                                <label for="username" class="form-label">
+                                    <i class="fas fa-at"></i>Nom d'utilisateur *
+                                </label>
+                                <input type="text" 
+                                       name="username" 
+                                       id="username" 
+                                       class="form-control" 
+                                       placeholder="Choisissez un nom d'utilisateur unique"
+                                       value="{% if form_register.username.value %}{{ form_register.username.value }}{% endif %}"
+                                       required>
+                                {% if form_register.username.errors %}
+                                <div class="error-message">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form_register.username.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email" class="form-label">
+                                    <i class="fas fa-envelope"></i>Email *
+                                </label>
+                                <input type="email" 
+                                       name="email" 
+                                       id="email" 
+                                       class="form-control" 
+                                       placeholder="exemple@email.com"
+                                       value="{% if form_register.email.value %}{{ form_register.email.value }}{% endif %}"
+                                       required>
+                                {% if form_register.email.errors %}
+                                <div class="error-message">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form_register.email.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Téléphone -->
+                            <div class="form-group">
+                                <label for="telephone" class="form-label">
+                                    <i class="fas fa-phone"></i>Téléphone *
+                                </label>
+                                <input type="tel" 
+                                       name="telephone" 
+                                       id="telephone" 
+                                       class="form-control" 
+                                       placeholder="+229 XX XX XX XX"
+                                       pattern="^[+]?[0-9\s\-\(\)]{8,}$"
+                                       value="{% if form_register.telephone.value %}{{ form_register.telephone.value }}{% endif %}"
+                                       required>
+                                {% if form_register.telephone.errors %}
+                                <div class="error-message">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form_register.telephone.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Localisation: Commune et Arrondissement -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="{{ form_register.commune.id_for_label }}" class="form-label">
+                                        <i class="fas fa-map-marker-alt"></i>Commune *
+                                    </label>
+                                    {{ form_register.commune|add_class:"form-select" }}
+                                    {% if form_register.commune.errors %}
+                                    <div class="error-message">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        {{ form_register.commune.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <label for="{{ form_register.arrondissement.id_for_label }}" class="form-label">
+                                        <i class="fas fa-map-marked-alt"></i>Arrondissement *
+                                    </label>
+                                    {{ form_register.arrondissement|add_class:"form-select" }}
+                                    {% if form_register.arrondissement.errors %}
+                                    <div class="error-message">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        {{ form_register.arrondissement.errors.0 }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mot de passe -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="password1" class="form-label">
+                                    <i class="fas fa-lock"></i>Mot de passe *
+                                </label>
+                                <input type="password" 
+                                       name="password1" 
+                                       id="password1" 
+                                       class="form-control" 
+                                       placeholder="Créez un mot de passe sécurisé"
+                                       required>
+                                {% if form_register.password1.errors %}
+                                <div class="error-message">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form_register.password1.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="password2" class="form-label">
+                                    <i class="fas fa-lock"></i>Confirmation *
+                                </label>
+                                <input type="password" 
+                                       name="password2" 
+                                       id="password2" 
+                                       class="form-control" 
+                                       placeholder="Confirmez votre mot de passe"
+                                       required>
+                                {% if form_register.password2.errors %}
+                                <div class="error-message">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                    {{ form_register.password2.errors.0 }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Checkbox conditions -->
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                <label class="form-check-label" for="termsCheck">
+                                    J'accepte les <a href="#" class="text-success">conditions d'utilisation</a> et la <a href="#" class="text-success">politique de confidentialité</a> *
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Bouton d'inscription -->
+                        <button type="submit" name="register" class="btn btn-register">
+                            <i class="fas fa-user-plus"></i> Créer mon compte
+                        </button>
+                        
+                        <p class="text-center mt-4 mb-0">
+                            Déjà inscrit ? <a href="{% url 'login' %}" class="text-success fw-bold">Connectez-vous ici</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="container text-center">
+        <small>© 2026 Agritech Bénin — Tous droits réservés</small>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/fr.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Initialiser Select2 sur la commune
+        $('#commune').select2({
+            language: 'fr',
+            theme: 'bootstrap-5',
+            placeholder: 'Sélectionnez une commune',
+            allowClear: true,
+            width: '100%'
+        });
+        
+        // Initialiser Select2 sur l'arrondissement
+        $('#arrondissement').select2({
+            language: 'fr',
+            theme: 'bootstrap-5',
+            placeholder: 'Sélectionnez un arrondissement',
+            allowClear: true,
+            width: '100%'
+        });
+        
+        // Données des arrondissements par commune
+        const arrondissementsParCommune = {
+            'cotonou': [
+                '1er Arrondissement', '2e Arrondissement', '3e Arrondissement',
+                '4e Arrondissement', '5e Arrondissement', '6e Arrondissement',
+                '7e Arrondissement', '8e Arrondissement', '9e Arrondissement',
+                '10e Arrondissement', '11e Arrondissement', '12e Arrondissement',
+                '13e Arrondissement'
+            ],
+            'abomey-calavi': [
+                'Abomey-Calavi', 'Akassato', 'Ganhi', 'Glodjigbé',
+                'Hêvié', 'Kpanroun', 'Ouèdo', 'Togba', 'Zinvié'
+            ],
+            'allada': ['Allada', 'Sékou', 'Togoudo'],
+            'porto-novo': [
+                '1er Arrondissement', '2e Arrondissement', '3e Arrondissement',
+                '4e Arrondissement', '5e Arrondissement'
+            ],
+            'parakou': [
+                '1er Arrondissement', '2e Arrondissement', '3e Arrondissement'
+            ],
+            'default': ['Centre', 'Nord', 'Sud', 'Est', 'Ouest']
+        };
+
+        // Fonction pour activer et remplir l'arrondissement
+        function activerEtRemplirArrondissement(commune) {
+            const arrondissementSelect = $('#arrondissement');
+            
+            // Activer le select
+            arrondissementSelect.prop('disabled', false);
+            
+            // Vider les options
+            arrondissementSelect.empty();
+            
+            if (!commune) {
+                arrondissementSelect.append('<option value="">Sélectionnez d\'abord une commune</option>');
+            } else {
+                // Remplir avec les arrondissements
+                const arrondissements = arrondissementsParCommune[commune] || arrondissementsParCommune['default'];
+                arrondissementSelect.append('<option value="">Sélectionnez un arrondissement</option>');
+                
+                arrondissements.forEach(arr => {
+                    arrondissementSelect.append(`<option value="${arr}">${arr}</option>`);
+                });
+                
+                // Mettre à jour le champ caché
+                const communeText = $('#commune').find('option:selected').text();
+                $('#hiddenCommune').val(communeText);
+            }
+            
+            // Mettre à jour Select2
+            arrondissementSelect.trigger('change');
+            
+            // Réinitialiser Select2
+            if (arrondissementSelect.hasClass('select2-hidden-accessible')) {
+                arrondissementSelect.select2('destroy');
+                arrondissementSelect.select2({
+                    language: 'fr',
+                    theme: 'bootstrap-5',
+                    placeholder: 'Sélectionnez un arrondissement',
+                    allowClear: true,
+                    width: '100%'
+                });
+            }
+        }
+
+        // Écouter le changement sur la commune
+        $('#commune').on('change', function() {
+            const commune = $(this).val();
+            activerEtRemplirArrondissement(commune);
+        });
+
+        // Initialiser au chargement
+        const communeInitiale = $('#commune').val();
+        if (communeInitiale) {
+            activerEtRemplirArrondissement(communeInitiale);
+            
+            // Sélectionner l'arrondissement existant si présent
+            const arrondissementExistant = '{{ form_register.arrondissement.value|default:"" }}';
+            if (arrondissementExistant) {
+                setTimeout(() => {
+                    $('#arrondissement').val(arrondissementExistant).trigger('change');
+                }, 200);
+            }
+        }
+
+        // Validation du formulaire
+        $('#registrationForm').on('submit', function(e) {
+            let isValid = true;
+            
+            if (!$('#commune').val()) {
+                $('#communeError').show();
+                $('#commune').addClass('is-invalid');
+                isValid = false;
+            }
+            
+            if (!$('#arrondissement').val() && $('#commune').val()) {
+                $('#arrondissement').addClass('is-invalid');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $('.is-invalid').first().offset().top - 100
+                }, 500);
+            }
+        });
+
+        // Supprimer les erreurs lors de la saisie
+        $('input, select').on('input change', function() {
+            $(this).removeClass('is-invalid');
+            $(this).next('.error-message').hide();
+        });
+    });
+</script>
+</body>
+</html>

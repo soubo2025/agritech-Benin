@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Rendements par commune</h3>
+<ul class="list-group">
+{% for d in data %}
+<li class="list-group-item">
+{{ d.parcelle__producteur__arrondissement__commune__nom }} :
+{{ d.total }} kg
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

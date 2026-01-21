@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Récoltes</h3>
+<table class="table table-bordered">
+{% for r in recoltes %}
+<tr>
+<td>{{ r.culture }}</td>
+<td>{{ r.quantite }} kg</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
