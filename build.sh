@@ -12,3 +12,8 @@ python manage.py collectstatic --noinput
 
 echo "=== Appliquer les migrations de la base de données ==="
 python manage.py migrate
+
+
+
+
+
