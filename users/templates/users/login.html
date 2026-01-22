@@ -5,159 +5,120 @@
 {% block title %}Connexion | Agritech Bénin{% endblock %}
 
 {% block content %}
-<!-- Page container optimisé mobile -->
-<div class="login-container py-3 py-md-5" style="min-height: 100vh; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+<div class="min-vh-100 d-flex align-items-center py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
     <div class="container">
-        <div class="row justify-content-center align-items-center g-0">
+        <div class="row justify-content-center align-items-center">
             <!-- Colonne formulaire -->
-            <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                <!-- Logo mobile en haut -->
-                <div class="d-lg-none text-center mb-4">
-                    <div class="d-inline-block p-3 rounded-circle bg-success bg-opacity-10 mb-3">
-                        <span style="font-size: 2rem; display: inline-block;">🌱</span>
-                    </div>
-                    <h1 class="h4 fw-bold text-success mb-1">Agritech Bénin</h1>
-                    <p class="text-muted small">Plateforme de gestion agricole</p>
-                </div>
-                
-                <div class="card login-card border-0 shadow-sm rounded-3 rounded-md-4 overflow-hidden">
-                    <!-- En-tête de carte -->
-                    <div class="card-header text-center py-4 py-md-5" style="background: linear-gradient(135deg, #28a745, #218838);">
-                        <div class="mb-3">
-                            <div class="d-inline-flex align-items-center justify-content-center bg-white bg-opacity-20 rounded-circle" style="width: 70px; height: 70px;">
-                                <i class="fas fa-lock text-white fs-4"></i>
+            <div class="col-lg-5 col-md-8">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    <div class="card-body p-0">
+                        <!-- En-tête -->
+                        <div class="text-center py-4" style="background: linear-gradient(135deg, #28a745, #218838);">
+                            <div class="mb-3">
+                                <span style="font-size: 2.5rem; display: inline-block;">🔐</span>
                             </div>
+                            <h3 class="fw-bold text-white mb-2">Connexion</h3>
+                            <p class="text-white-50 mb-0">Accédez à votre espace producteur</p>
                         </div>
-                        <h2 class="h4 fw-bold text-white mb-2">Connexion</h2>
-                        <p class="text-white-75 mb-0 small small-md">Accédez à votre espace producteur</p>
-                    </div>
-                    
-                    <!-- Corps de carte -->
-                    <div class="card-body p-3 p-md-4 p-lg-5">
-                        {% if form.non_field_errors %}
-                        <div class="alert alert-danger border-0 bg-danger bg-opacity-10 border-danger border-opacity-25 d-flex align-items-start mb-4" role="alert">
-                            <i class="fas fa-exclamation-circle me-3 text-danger mt-1"></i>
-                            <div class="flex-grow-1">
-                                <strong class="d-block mb-1">Identifiants incorrects</strong>
-                                <p class="mb-0 small">Vérifiez votre nom d'utilisateur et mot de passe.</p>
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        {% endif %}
                         
-                        <form method="post" novalidate class="needs-validation" id="loginForm">
-                            {% csrf_token %}
-                            
-                            <!-- Nom d'utilisateur -->
-                            <div class="mb-3 mb-md-4">
-                                <label for="{{ form.username.id_for_label }}" class="form-label fw-semibold mb-2 mb-md-3">
-                                    <i class="fas fa-user me-2 text-success"></i>Nom d'utilisateur
-                                </label>
-                                <div class="input-group input-group-lg-mobile">
-                                    <span class="input-group-text bg-white border-end-0">
-                                        <i class="fas fa-at text-muted"></i>
-                                    </span>
-                                    {{ form.username|add_class:"form-control form-control-lg-mobile border-start-0 ps-0"|attr:"placeholder:Nom d'utilisateur"|attr:"autocomplete:username"|attr:"autocapitalize:none"|attr:"spellcheck:false" }}
+                        <div class="p-4 p-md-5">
+                            {% if form.non_field_errors %}
+                            <div class="alert alert-danger border-0 bg-danger bg-opacity-10 border-danger border-opacity-25 d-flex align-items-center" role="alert">
+                                <i class="fas fa-exclamation-circle me-3 text-danger"></i>
+                                <div>
+                                    <strong>Identifiants incorrects</strong>
+                                    <p class="mb-0 small">Votre nom d'utilisateur ou mot de passe est incorrect.</p>
                                 </div>
-                                {% if form.username.errors %}
-                                <div class="invalid-feedback d-flex align-items-center mt-2">
-                                    <i class="fas fa-exclamation-circle me-2 fs-6"></i>
-                                    <span>{{ form.username.errors.0 }}</span>
-                                </div>
-                                {% endif %}
                             </div>
+                            {% endif %}
                             
-                            <!-- Mot de passe -->
-                            <div class="mb-3 mb-md-4">
-                                <div class="d-flex justify-content-between align-items-center mb-2 mb-md-3">
-                                    <label for="{{ form.password.id_for_label }}" class="form-label fw-semibold mb-0">
-                                        <i class="fas fa-lock me-2 text-success"></i>Mot de passe
+                            <form method="post" novalidate>
+                                {% csrf_token %}
+                                
+                                <!-- Nom d'utilisateur -->
+                                <div class="mb-4">
+                                    <label for="{{ form.username.id_for_label }}" class="form-label fw-semibold">
+                                        <i class="fas fa-user me-2 text-success"></i>Nom d'utilisateur *
                                     </label>
-                                    <a href="#" class="text-success small text-decoration-none d-none d-md-inline">
-                                        <i class="fas fa-key me-1"></i>Mot de passe oublié ?
-                                    </a>
-                                </div>
-                                <div class="input-group input-group-lg-mobile">
-                                    <span class="input-group-text bg-white border-end-0">
-                                        <i class="fas fa-lock text-muted"></i>
-                                    </span>
-                                    {{ form.password|add_class:"form-control form-control-lg-mobile border-start-0 ps-0 password-input"|attr:"placeholder:Mot de passe"|attr:"autocomplete:current-password" }}
-                                    <button class="btn btn-outline-secondary border-start-0" type="button" id="togglePassword" aria-label="Afficher/masquer le mot de passe">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </div>
-                                
-                                <!-- Lien mot de passe oublié mobile -->
-                                <div class="d-md-none mt-2 text-end">
-                                    <a href="#" class="text-success small text-decoration-none">
-                                        <i class="fas fa-key me-1"></i>Mot de passe oublié ?
-                                    </a>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0">
+                                            <i class="fas fa-at text-muted"></i>
+                                        </span>
+                                        {{ form.username|add_class:"form-control border-start-0 ps-0"|attr:"placeholder:Entrez votre nom d'utilisateur" }}
+                                    </div>
+                                    {% if form.username.errors %}
+                                    <div class="mt-2 text-danger small d-flex align-items-center">
+                                        <i class="fas fa-exclamation-circle me-2"></i>
+                                        {{ form.username.errors.0 }}
+                                    </div>
+                                    {% endif %}
                                 </div>
                                 
-                                {% if form.password.errors %}
-                                <div class="invalid-feedback d-flex align-items-center mt-2">
-                                    <i class="fas fa-exclamation-circle me-2 fs-6"></i>
-                                    <span>{{ form.password.errors.0 }}</span>
+                                <!-- Mot de passe -->
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <label for="{{ form.password.id_for_label }}" class="form-label fw-semibold mb-0">
+                                            <i class="fas fa-lock me-2 text-success"></i>Mot de passe *
+                                        </label>
+                                        <a href="#" class="text-success small text-decoration-none">
+                                            <i class="fas fa-key me-1"></i>Mot de passe oublié ?
+                                        </a>
+                                    </div>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0">
+                                            <i class="fas fa-lock text-muted"></i>
+                                        </span>
+                                        {{ form.password|add_class:"form-control border-start-0 ps-0"|attr:"placeholder:Entrez votre mot de passe"|attr:"type:password" }}
+                                        <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    {% if form.password.errors %}
+                                    <div class="mt-2 text-danger small d-flex align-items-center">
+                                        <i class="fas fa-exclamation-circle me-2"></i>
+                                        {{ form.password.errors.0 }}
+                                    </div>
+                                    {% endif %}
                                 </div>
-                                {% endif %}
-                            </div>
-                            
-                            <!-- Options -->
-                            <div class="mb-4 d-flex justify-content-between align-items-center">
-                                <div class="form-check">
+                                
+                                <!-- Remember me -->
+                                <div class="mb-4 form-check">
                                     <input type="checkbox" class="form-check-input" id="rememberMe" name="remember_me">
-                                    <label class="form-check-label text-muted small" for="rememberMe">
+                                    <label class="form-check-label text-muted" for="rememberMe">
                                         Se souvenir de moi
                                     </label>
                                 </div>
                                 
-                                <!-- Sécurité -->
-                                <div class="d-none d-md-block">
-                                    <span class="badge bg-success bg-opacity-10 text-success">
-                                        <i class="fas fa-shield-alt me-1"></i>Securisé
-                                    </span>
+                                <!-- Bouton de connexion -->
+                                <button type="submit" class="btn btn-success btn-lg w-100 mb-3 py-3 fw-bold">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                                </button>
+                                
+                                <!-- Lien d'inscription -->
+                                <div class="text-center pt-4 border-top">
+                                    <p class="text-muted mb-3">
+                                        <a href="{% url 'register_producteur' %}" class="text-success fw-bold text-decoration-none">
+                                            <i class="fas fa-user-plus me-1"></i>je n'ai pas de compte je veux m'inscrire
+                                        </a>
+                                    </p>
                                 </div>
-                            </div>
-                            
-                            <!-- Bouton de connexion -->
-                            <button type="submit" class="btn btn-success btn-lg w-100 mb-3 py-3 fw-bold login-submit">
-                                <i class="fas fa-sign-in-alt me-2"></i>Se connecter
-                            </button>
-                            
-                            <!-- Séparateur -->
-                            <div class="position-relative my-3 my-md-4">
-                                <hr class="text-muted">
-                                <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">
-                                    ou
-                                </span>
-                            </div>
-                            
-                            <!-- Lien d'inscription - CORRECTION ERREUR 505 -->
-                            <div class="text-center">
-                                <p class="text-muted mb-2 small">Vous n'avez pas encore de compte ?</p>
-                                <a href="{% url 'register_producteur' %}" class="btn btn-outline-success w-100 py-2 py-md-3 d-flex align-items-center justify-content-center" id="registerLink">
-                                    <i class="fas fa-user-plus me-2"></i>
-                                    <span>S'inscrire comme producteur</span>
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                    
-                    <!-- Pied de carte -->
-                    <div class="card-footer bg-white border-top-0 py-3 px-3 px-md-4 text-center">
-                        <p class="small text-muted mb-0">
-                            <i class="fas fa-info-circle me-2 text-success"></i>
-                            <span class="d-none d-md-inline">Vos données sont sécurisées et confidentielles</span>
-                            <span class="d-md-none">Données sécurisées</span>
-                        </p>
+                            </form>
+                        </div>
+                        
+                        <!-- Pied de carte -->
+                        <div class="bg-light py-3 px-4 text-center">
+                            <p class="small text-muted mb-0">
+                                <i class="fas fa-shield-alt me-2 text-success"></i>
+                                Vos données sont sécurisées et confidentielles
+                            </p>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Retour à l'accueil -->
-                <div class="text-center mt-4 mt-md-5">
-                    <a href="/" class="text-decoration-none text-muted d-inline-flex align-items-center" id="homeLink">
-                        <i class="fas fa-arrow-left me-2"></i>
-                        <span>Retour à l'accueil</span>
+                <div class="text-center mt-4">
+                    <a href="/" class="text-decoration-none text-muted">
+                        <i class="fas fa-arrow-left me-2"></i>Retour à l'accueil
                     </a>
                 </div>
             </div>
@@ -166,630 +127,77 @@
 </div>
 
 <style>
-    /* Variables CSS */
-    :root {
-        --primary-color: #28a745;
-        --primary-dark: #218838;
-        --success-light: #d4edda;
-        --border-radius: 12px;
-        --border-radius-lg: 16px;
-    }
-    
-    /* Reset et optimisations mobiles */
-    * {
-        -webkit-tap-highlight-color: transparent;
-    }
-    
-    body {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        overflow-x: hidden;
-    }
-    
-    /* Styles du conteneur principal */
-    .login-container {
-        display: flex;
-        align-items: center;
-        min-height: 100vh;
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: env(safe-area-inset-bottom);
-    }
-    
-    /* Carte de connexion */
-    .login-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 1px solid rgba(0,0,0,0.05);
-    }
-    
-    .login-card:hover {
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
-    }
-    
-    /* Champs de formulaire mobiles */
-    .form-control-lg-mobile {
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
-        line-height: 1.5;
-        border-radius: var(--border-radius);
-    }
-    
-    .input-group-lg-mobile .input-group-text {
-        padding: 0.75rem 1rem;
-    }
-    
-    /* Focus states améliorés */
     .form-control:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.15);
-        outline: none;
+        border-color: #28a745;
+        box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
     }
     
-    .input-group:focus-within .input-group-text {
-        border-color: var(--primary-color);
-        background-color: var(--success-light);
+    .input-group-text {
+        transition: all 0.3s ease;
     }
     
-    /* Boutons optimisés mobile */
-    .btn {
-        border-radius: var(--border-radius);
-        transition: all 0.2s ease;
-        position: relative;
-        overflow: hidden;
+    .form-control:focus + .input-group-text {
+        border-color: #28a745;
     }
     
-    .btn:active {
-        transform: scale(0.98);
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
     }
     
     .btn-success {
-        background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+        background: linear-gradient(135deg, #28a745, #218838);
         border: none;
-        font-weight: 600;
+        transition: all 0.3s ease;
     }
     
-    .btn-success:hover, .btn-success:focus {
-        background: linear-gradient(135deg, var(--primary-dark), #1e7e34);
+    .btn-success:hover {
+        background: linear-gradient(135deg, #218838, #1e7e34);
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
     }
     
-    .btn-outline-success {
-        border: 2px solid var(--primary-color);
-        color: var(--primary-color);
-        font-weight: 500;
-    }
-    
     .btn-outline-success:hover {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.1);
     }
     
-    /* Alertes */
-    .alert {
-        border-radius: var(--border-radius);
-        border: none;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .login-container {
-            padding: 1rem;
-            min-height: calc(100vh - 2rem);
-        }
-        
-        .login-card {
-            border-radius: var(--border-radius-lg);
-            border: 1px solid rgba(0,0,0,0.08);
-        }
-        
-        .card-header {
-            padding: 2rem 1.5rem !important;
-        }
-        
-        .card-body {
-            padding: 1.5rem !important;
-        }
-        
-        .btn-lg {
-            padding: 0.875rem 1.5rem;
-            font-size: 1rem;
-        }
-        
-        .form-control-lg-mobile {
-            padding: 0.875rem 1rem;
-        }
-        
-        .input-group-lg-mobile .input-group-text {
-            padding: 0.875rem 1rem;
-        }
-        
-        h2.h4 {
-            font-size: 1.5rem;
-        }
-    }
-    
-    @media (max-width: 576px) {
-        .login-container {
-            padding: 0.75rem;
-        }
-        
-        .login-card {
-            margin: 0;
-        }
-        
-        .card-header {
-            padding: 1.75rem 1.25rem !important;
-        }
-        
-        .card-body {
-            padding: 1.25rem !important;
-        }
-        
-        .btn-lg {
-            padding: 0.75rem 1.25rem;
-        }
-        
-        .form-control-lg-mobile {
-            padding: 0.75rem 0.875rem;
-            font-size: 0.9375rem;
-        }
-        
-        h2.h4 {
-            font-size: 1.375rem;
-        }
-        
-        .btn-outline-success {
-            font-size: 0.9375rem;
-        }
-    }
-    
-    @media (max-width: 360px) {
-        .card-header {
-            padding: 1.5rem 1rem !important;
-        }
-        
-        .card-body {
-            padding: 1rem !important;
-        }
-        
-        .btn-lg {
-            padding: 0.625rem 1rem;
-            font-size: 0.9375rem;
-        }
-        
-        .form-control-lg-mobile {
-            padding: 0.625rem 0.75rem;
-            font-size: 0.875rem;
-        }
-        
-        .input-group-lg-mobile .input-group-text {
-            padding: 0.625rem 0.75rem;
-        }
-        
-        h2.h4 {
-            font-size: 1.25rem;
-        }
-    }
-    
-    /* Support pour les appareils avec notch */
-    @supports (padding: max(0px)) {
-        .login-container {
-            padding-left: max(0.75rem, env(safe-area-inset-left));
-            padding-right: max(0.75rem, env(safe-area-inset-right));
-        }
-    }
-    
-    /* Animation pour le bouton de soumission */
-    .login-submit {
-        position: relative;
-    }
-    
-    .login-submit:after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 5px;
-        height: 5px;
-        background: rgba(255, 255, 255, 0.5);
-        opacity: 0;
-        border-radius: 100%;
-        transform: scale(1, 1) translate(-50%);
-        transform-origin: 50% 50%;
-    }
-    
-    .login-submit:focus:not(:active)::after {
-        animation: ripple 1s ease-out;
-    }
-    
-    @keyframes ripple {
-        0% {
-            transform: scale(0, 0);
-            opacity: 0.5;
-        }
-        100% {
-            transform: scale(40, 40);
-            opacity: 0;
-        }
-    }
-    
-    /* Améliorations pour le clavier mobile */
-    input, button, select, textarea {
-        font-size: 16px !important; /* Empêche le zoom sur iOS */
-    }
-    
-    /* Support pour le thème sombre */
-    @media (prefers-color-scheme: dark) {
-        .login-container {
-            background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
-        }
-        
-        .login-card {
-            background-color: #1e1e1e;
-            border-color: #333;
-        }
-        
-        .card-header {
-            background: linear-gradient(135deg, #1e7e34, #155724) !important;
-        }
-        
-        .form-control, .input-group-text {
-            background-color: #2d2d2d;
-            border-color: #444;
-            color: #fff;
-        }
-        
-        .form-control:focus {
-            background-color: #2d2d2d;
-            color: #fff;
-        }
-        
-        .text-muted {
-            color: #aaa !important;
-        }
-        
-        .btn-outline-success {
-            color: #4cd964;
-            border-color: #4cd964;
-        }
-        
-        .btn-outline-success:hover {
-            background-color: #4cd964;
-            color: #000;
-        }
-    }
-    
-    /* Optimisation pour les connexions lentes */
-    .login-submit.loading {
-        pointer-events: none;
-        opacity: 0.8;
-    }
-    
-    .login-submit.loading:after {
-        content: '';
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        top: 50%;
-        left: 50%;
-        margin: -10px 0 0 -10px;
-        border: 2px solid rgba(255,255,255,0.3);
-        border-radius: 50%;
-        border-top-color: #fff;
-        animation: spin 1s ease-in-out infinite;
-    }
-    
-    @keyframes spin {
-        to { transform: rotate(360deg); }
+    /* Style pour le lien d'inscription */
+    .text-success.fw-bold:hover {
+        text-decoration: underline !important;
+        color: #218838 !important;
     }
 </style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Éléments DOM
+        // Toggle password visibility
         const togglePassword = document.getElementById('togglePassword');
-        const passwordField = document.querySelector('.password-input');
-        const loginForm = document.getElementById('loginForm');
-        const submitBtn = document.querySelector('.login-submit');
-        const rememberMe = document.getElementById('rememberMe');
-        const registerLink = document.getElementById('registerLink');
-        const homeLink = document.getElementById('homeLink');
+        const passwordField = document.querySelector('input[type="password"]');
         
-        // Toggle mot de passe
         if (togglePassword && passwordField) {
             togglePassword.addEventListener('click', function() {
                 const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordField.setAttribute('type', type);
-                this.innerHTML = type === 'password' ? 
-                    '<i class="fas fa-eye"></i>' : 
-                    '<i class="fas fa-eye-slash"></i>';
-                this.setAttribute('aria-label', type === 'password' ? 
-                    'Afficher le mot de passe' : 
-                    'Masquer le mot de passe');
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+        }
+        
+        // Animation pour les champs focus
+        const formControls = document.querySelectorAll('.form-control');
+        formControls.forEach(control => {
+            control.addEventListener('focus', function() {
+                this.parentElement.querySelector('.input-group-text').style.backgroundColor = '#e8f5e8';
             });
             
-            // Accessibilité clavier
-            togglePassword.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
-                }
+            control.addEventListener('blur', function() {
+                this.parentElement.querySelector('.input-group-text').style.backgroundColor = '#f8f9fa';
             });
-        }
-        
-        // CORRECTION ERREUR 505 : Protection des liens
-        function safeNavigate(url, fallbackUrl = '/') {
-            try {
-                // Vérifier si l'URL est valide
-                if (!url || url === '#' || url === '') {
-                    console.warn('URL vide, utilisation du fallback:', fallbackUrl);
-                    window.location.href = fallbackUrl;
-                    return false;
-                }
-                
-                // Vérifier si c'est une URL Django template tag vide
-                if (url.includes('{%') && url.includes('%}') && url.includes('url')) {
-                    console.warn('Template tag non rendu, utilisation du fallback:', fallbackUrl);
-                    window.location.href = fallbackUrl;
-                    return false;
-                }
-                
-                // Tester avec une requête HEAD légère
-                fetch(url, {
-                    method: 'HEAD',
-                    mode: 'same-origin',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.href = url;
-                    } else {
-                        console.warn('URL non accessible, utilisation du fallback:', fallbackUrl);
-                        window.location.href = fallbackUrl;
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur de navigation:', error);
-                    // Fallback progressif
-                    const fallbackUrls = [
-                        '/register/',
-                        '/accounts/register/',
-                        '/signup/',
-                        '/inscription/'
-                    ];
-                    
-                    // Essayer plusieurs URLs de fallback
-                    let fallbackIndex = 0;
-                    function tryNextFallback() {
-                        if (fallbackIndex < fallbackUrls.length) {
-                            const nextUrl = fallbackUrls[fallbackIndex];
-                            console.log('Essai URL de fallback:', nextUrl);
-                            fallbackIndex++;
-                            
-                            // Tester cette URL
-                            fetch(nextUrl, { method: 'HEAD' })
-                                .then(res => {
-                                    if (res.ok) {
-                                        window.location.href = nextUrl;
-                                    } else {
-                                        tryNextFallback();
-                                    }
-                                })
-                                .catch(() => tryNextFallback());
-                        } else {
-                            // Dernier recours : page d'accueil
-                            window.location.href = '/';
-                        }
-                    }
-                    
-                    tryNextFallback();
-                });
-                
-                return true;
-            } catch (error) {
-                console.error('Erreur dans safeNavigate:', error);
-                window.location.href = fallbackUrl;
-                return false;
-            }
-        }
-        
-        // Gestion du lien d'inscription
-        if (registerLink) {
-            registerLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Afficher un indicateur de chargement
-                const originalText = this.innerHTML;
-                this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Redirection...';
-                this.classList.add('disabled');
-                
-                const url = this.getAttribute('href');
-                
-                // Navigation sécurisée avec timeout
-                const navigationTimeout = setTimeout(() => {
-                    console.warn('Navigation timeout, utilisation du fallback');
-                    window.location.href = '/register/';
-                }, 5000);
-                
-                safeNavigate(url, '/register/');
-                
-                // Nettoyer le timeout si la navigation réussit
-                setTimeout(() => clearTimeout(navigationTimeout), 4000);
-                
-                // Restaurer le bouton après 3 secondes au cas où
-                setTimeout(() => {
-                    this.innerHTML = originalText;
-                    this.classList.remove('disabled');
-                }, 3000);
-            });
-        }
-        
-        // Gestion du lien d'accueil
-        if (homeLink) {
-            homeLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const url = this.getAttribute('href');
-                safeNavigate(url, '/');
-            });
-        }
-        
-        // Gestion de la soumission du formulaire
-        if (loginForm && submitBtn) {
-            loginForm.addEventListener('submit', function(e) {
-                // Validation basique
-                const username = document.querySelector('input[name="username"]');
-                const password = document.querySelector('.password-input');
-                
-                if (!username.value.trim() || !password.value.trim()) {
-                    e.preventDefault();
-                    // Animation de shake
-                    loginForm.classList.add('shake');
-                    setTimeout(() => loginForm.classList.remove('shake'), 500);
-                    
-                    // Focus sur le premier champ vide
-                    if (!username.value.trim()) {
-                        username.focus();
-                    } else if (!password.value.trim()) {
-                        password.focus();
-                    }
-                    return;
-                }
-                
-                // Animation de chargement
-                submitBtn.classList.add('loading');
-                submitBtn.innerHTML = '<span class="invisible">Chargement...</span>';
-                
-                // Sauvegarde du "Se souvenir de moi"
-                if (rememberMe && rememberMe.checked) {
-                    localStorage.setItem('rememberLogin', 'true');
-                    if (username.value) {
-                        localStorage.setItem('lastUsername', username.value);
-                    }
-                } else {
-                    localStorage.removeItem('rememberLogin');
-                    localStorage.removeItem('lastUsername');
-                }
-            });
-            
-            // Remplissage automatique si "Se souvenir de moi" était coché
-            if (localStorage.getItem('rememberLogin') === 'true') {
-                const lastUsername = localStorage.getItem('lastUsername');
-                if (lastUsername) {
-                    const usernameField = document.querySelector('input[name="username"]');
-                    if (usernameField) {
-                        usernameField.value = lastUsername;
-                        rememberMe.checked = true;
-                    }
-                }
-            }
-        }
-        
-        // Animation de shake
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                20%, 40%, 60%, 80% { transform: translateX(5px); }
-            }
-            .shake {
-                animation: shake 0.5s ease-in-out;
-            }
-            .spinner-border {
-                vertical-align: middle;
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Focus automatique sur le premier champ
-        setTimeout(() => {
-            const firstInput = document.querySelector('input[type="text"], input[type="email"]');
-            if (firstInput && !firstInput.value) {
-                firstInput.focus();
-            }
-        }, 300);
-        
-        // Gestion du clavier mobile
-        document.addEventListener('focusin', function(e) {
-            if (e.target.matches('input, textarea, select')) {
-                // Scroll doux vers l'élément
-                e.target.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'center' 
-                });
-            }
         });
-        
-        // Détection de la taille de l'écran
-        function handleResize() {
-            const isMobile = window.innerWidth <= 768;
-            document.body.classList.toggle('mobile-view', isMobile);
-        }
-        
-        window.addEventListener('resize', handleResize);
-        handleResize(); // Appel initial
-    });
-    
-    // Gestion de la touche Entrée
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-            const focused = document.activeElement;
-            if (focused && focused.classList.contains('form-control')) {
-                // Trouver le prochain champ ou soumettre
-                const inputs = Array.from(document.querySelectorAll('input, button[type="submit"]'));
-                const currentIndex = inputs.indexOf(focused);
-                if (currentIndex > -1 && currentIndex < inputs.length - 1) {
-                    e.preventDefault();
-                    inputs[currentIndex + 1].focus();
-                }
-            }
-        }
     });
 </script>
-
-<!-- Fallback pour les navigateurs sans JavaScript -->
-<noscript>
-    <style>
-        #togglePassword, .login-submit.loading:after {
-            display: none !important;
-        }
-        
-        .login-submit:after {
-            display: none;
-        }
-        
-        .password-input {
-            padding-right: 0.75rem !important;
-        }
-        
-        #registerLink, #homeLink {
-            pointer-events: auto !important;
-        }
-    </style>
-    <div class="alert alert-warning mt-3" role="alert">
-        <i class="fas fa-exclamation-triangle me-2"></i>
-        JavaScript est désactivé. Certaines fonctionnalités peuvent ne pas fonctionner correctement.
-    </div>
-</noscript>
-
-<!-- Solution supplémentaire : Vérification des URLs côté serveur -->
-{% comment %}
-Ajoutez ceci dans votre urls.py Django :
-
-from django.urls import path
-from . import views
-
-urlpatterns = [
-    # ... autres URLs ...
-    path('login/', views.login_view, name='login'),
-    path('register/', views.register_producteur, name='register_producteur'),
-    # Fallback URLs au cas où
-    path('inscription/', views.register_producteur, name='register_fallback'),
-    path('accounts/register/', views.register_producteur, name='register_alternative'),
-]
-{% endcomment %}
 {% endblock %}
