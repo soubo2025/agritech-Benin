@@ -103,13 +103,11 @@ TEMPLATES = [
 # =========================
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}',  # Utilise SQLite en local
-        conn_max_age=600,
-        ssl_require=not os.environ.get('DEBUG', 'False') == 'True'  # SSL en prod seulement
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
-
 
 # =========================
 # PASSWORD VALIDATION
