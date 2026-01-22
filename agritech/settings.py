@@ -121,6 +121,31 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+import dj_database_url
+import os
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ.get("DATABASE_URL")
+    )
+}
+
+
+
+
+
+ALLOWED_HOSTS = [
+    "agritech-benin-xzjp.onrender.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://agritech-benin-xzjp.onrender.com",
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+
 # =========================
 # AUTH REDIRECTS
 # =========================
