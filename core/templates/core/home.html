@@ -3,7 +3,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>Agritech Bénin | Plateforme de Gestion Agricole</title>
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -18,10 +19,25 @@
             --dark-green: #155724;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fa;
             color: #333;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Correction pour éviter les barres blanches */
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         /* Navbar améliorée */
@@ -154,6 +170,7 @@
             color: white;
             padding: 80px 0;
             text-align: center;
+            margin-top: 0; /* Supprime la marge */
         }
 
         .cta-title {
@@ -188,6 +205,7 @@
         .stats-section {
             padding: 80px 0;
             background-color: #f8f9fa;
+            margin-bottom: 0; /* Supprime la marge en bas */
         }
 
         .stats-container {
@@ -281,13 +299,15 @@
             opacity: 0.9;
         }
 
-        /* Footer amélioré */
+        /* Footer amélioré - Correction de la barre blanche */
         footer {
             background: linear-gradient(135deg, #343a40, #212529);
             color: white;
             padding: 3rem 0 1.5rem;
-            margin-top: 5rem;
-            clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 100%);
+            margin-top: 0; /* IMPORTANT: supprime la marge qui créait la barre blanche */
+            clip-path: polygon(0 0%, 100% 5%, 100% 100%, 0 100%); /* Clip-path ajusté */
+            width: 100%;
+            position: relative;
         }
 
         .footer-links a {
@@ -303,23 +323,137 @@
             transform: translateX(5px);
         }
 
-        /* Responsive */
+        /* Améliorations Responsive */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
+                padding: 0 15px;
             }
             
             .hero p {
                 font-size: 1.1rem;
-                padding: 0 1rem;
+                padding: 0 20px;
             }
             
             .hero {
                 padding: 100px 0 60px;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
             }
             
             .cta-title {
                 font-size: 2rem;
+                padding: 0 15px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .stats-container {
+                padding: 1.5rem;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem 1rem;
+                margin: 0 10px;
+            }
+            
+            .btn-hero, .btn-cta {
+                padding: 10px 25px;
+                font-size: 1rem;
+                width: 90%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .d-flex {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px !important;
+            }
+            
+            footer {
+                padding: 2rem 0 1rem;
+                clip-path: polygon(0 0%, 100% 3%, 100% 100%, 0 100%);
+            }
+            
+            .footer-links {
+                margin-bottom: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .cta-title {
+                font-size: 1.8rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .stat-value {
+                font-size: 1.8rem;
+            }
+            
+            .feature-icon {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .section-title::after {
+                width: 40px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* Optimisation pour les très petits écrans */
+        @media (max-width: 360px) {
+            .hero {
+                padding: 80px 0 40px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .cta-title {
+                font-size: 1.6rem;
+            }
+            
+            .btn-hero, .btn-cta, .btn-outline-light {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Correction pour éviter le débordement horizontal */
+        .container, .container-fluid {
+            max-width: 100%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        /* Animation pour les mobiles - désactivée si préférence réduite */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
             }
         }
     </style>
@@ -330,7 +464,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="#">
-            <span class="brand-icon">🌱</span>CHABI Aziz
+            <span class="brand-icon">🌱</span>CHABI AZIZ
         </a>
         <div class="ms-auto">
             <a href="{% url 'login' %}" class="btn btn-outline-light">
@@ -478,7 +612,8 @@
             Inscrivez-vous gratuitement dès maintenant et bénéficiez de tous les outils pour optimiser votre production agricole.
         </p>
         <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
-            <a href="{% url 'register_producteur' %}" class="btn btn-cta">
+            <!-- Correction pour l'erreur 505 - Vérification d'URL -->
+            <a href="{% url 'register_producteur' %}" class="btn btn-cta" id="registerBtn">
                 <i class="fas fa-user-plus"></i> S'inscrire maintenant
             </a>
             <a href="{% url 'login' %}" class="btn btn-outline-light" style="border-radius: 50px; padding: 12px 30px;">
@@ -553,7 +688,64 @@
                 }, 800);
             }
         });
+        
+        // Protection contre l'erreur 505 - Vérification avant clic
+        $('#registerBtn').on('click', function(e) {
+            const url = $(this).attr('href');
+            
+            // Si l'URL est vide ou "#", on empêche le comportement par défaut
+            if (!url || url === '#' || url === '') {
+                e.preventDefault();
+                console.warn('URL non définie pour l\'inscription producteur');
+                
+                // Option 1: Rediriger vers une page de fallback
+                // window.location.href = '/register/';
+                
+                // Option 2: Afficher un message d'erreur
+                alert('La page d\'inscription est temporairement indisponible. Veuillez réessayer plus tard ou contacter l\'administrateur.');
+                
+                // Option 3: Journaliser l'erreur
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'broken_link', {
+                        'event_category': 'engagement',
+                        'event_label': 'register_producteur_link'
+                    });
+                }
+            }
+            // Sinon, la navigation se fait normalement
+        });
+        
+        // Optimisation mobile - Désactiver certaines animations sur mobile
+        if (window.innerWidth < 768) {
+            $('.feature-card, .stat-card').css('transition', 'none');
+        }
+        
+        // Recalculer sur le redimensionnement
+        $(window).on('resize', function() {
+            if (window.innerWidth < 768) {
+                $('.feature-card, .stat-card').css('transition', 'none');
+            } else {
+                $('.feature-card, .stat-card').css('transition', 'transform 0.3s ease');
+            }
+        });
     });
 </script>
+
+<!-- Fallback pour les navigateurs sans JS -->
+<noscript>
+    <style>
+        .feature-card:hover, .stat-card:hover {
+            transform: none !important;
+        }
+        .btn-hero:hover, .btn-cta:hover {
+            transform: none !important;
+        }
+    </style>
+    <div style="display:none;">
+        <!-- URLs de fallback pour les utilisateurs sans JavaScript -->
+        <a href="/accounts/register/">Inscription Producteur</a>
+        <a href="/accounts/login/">Connexion</a>
+    </div>
+</noscript>
 </body>
 </html>
